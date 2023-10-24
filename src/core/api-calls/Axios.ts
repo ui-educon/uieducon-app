@@ -1,5 +1,5 @@
-import firebaseAuth from '@/firebase.config'
 import axios from 'axios'
+import firebaseAuth from '@/firebase.config'
 
 // *******************************
 // *** CREATING AXIOS INSTANCE ***
