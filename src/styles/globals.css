@@ -26,3 +26,7 @@ body {
   margin: 0;
   font-family: "Inter", sans-serif;
 }
+
+.common-frame-box {
+  @apply max-w-[1440px] mx-auto xxl:px-20 md:px-10 xxs:px-5 px-2
+}
