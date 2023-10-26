@@ -1,0 +1,19 @@
+.howtitle{
+    font-size: 3rem;
+}
+
+@media (max-width: 750px)
+{
+   
+    /* .howcon{
+        margin-top: -4vh
+
+    } */
+    .howimg{
+        display: none;
+    }
+    .howtitle{
+        margin-top: -5vh;
+        font-size: 2rem;
+    }
+}

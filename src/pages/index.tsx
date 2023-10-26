@@ -1,9 +1,23 @@
+import HomePage from "@/components/HomePage/HomePage";
+import { useEffect, useState } from "react";
+
 export default function Home() {
-  return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24`}
-    >
-      <p>Hello</p>
-    </main>
-  )
+  const [showChild, setShowChild] = useState(false);
+  useEffect(() => {
+    setShowChild(true);
+  }, []);
+
+  if (!showChild) {
+    return null;
+  }
+
+  if (typeof window === "undefined") {
+    return <></>;
+  } else {
+    return (
+      <main>
+        <HomePage />
+      </main>
+    );
+  }
 }
