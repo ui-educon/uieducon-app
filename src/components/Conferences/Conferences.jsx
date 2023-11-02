@@ -113,7 +113,7 @@ online-conf.com */}
                   <Image
                     className="h-56 lg:h-60 w-full object-contain"
                     src={icicc}
-                    alt
+                    alt=""
                   />
                   <div className="p-3">
                     <h3 className="font-semibold text-xl leading-6 text-gray-700 my-2">
@@ -194,7 +194,7 @@ online-conf.com */}
                   <Image
                     className="h-56 lg:h-60 w-full object-cover"
                     src={icdam}
-                    alt
+                    alt=""
                   />
                   <div className="p-3">
                     <h3 className="font-semibold text-xl leading-6 text-gray-700 my-2">
@@ -247,7 +247,7 @@ online-conf.com */}
 
                     <p className="py-2 paragraph-normal text-gray-800 font-semibold">
                       All accepted papers, following a rigorous double-blinded
-                      peer review process, will be published in Springer's
+                      peer review process, will be published in Springer&apos;s
                       Lecture Notes on Networks & Systems, which is indexed in
                       reputable databases such as SCOPUS, INSPEC, EI Compendex,
                       and WoS. Additionally, selected extended papers will be
