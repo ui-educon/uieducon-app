@@ -45,7 +45,7 @@ const getRequestParams = (requestParams: any) => {
 // *************************
 
 // Get call handler
-const handleGet = async (url: string, requestParams: any, forceRefreshAuthToken?: boolean) => {
+const handleGet = async (url: string, requestParams?: any, forceRefreshAuthToken?: boolean) => {
   try {
     let params = getRequestParams(requestParams)
     const resp = await axiosInstance({
