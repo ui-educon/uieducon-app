@@ -52,7 +52,7 @@ const HowItWorks = () => {
                 2
               </text>
             </svg>
-            Fill your details, don't worry we are with you.
+            Fill your details, don&apos;t worry we are with you.
           </div>
           <div className="flex items-center">
             <svg
