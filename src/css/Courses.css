@@ -1,0 +1,15 @@
+.item-img {
+    background-repeat: no-repeat;
+    background-size:cover ;
+}
+
+.course-con {
+    width: 80%;
+    margin: 0 auto 0 auto;
+}
+
+@media (max-width:990px) {
+    .coursedes {
+        width: 100%;
+    }
+}

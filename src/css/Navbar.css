@@ -1,0 +1,60 @@
+.regb {
+   background-color: #7E3AF2;
+   border-radius: 5px;
+   letter-spacing: 0.02em;
+   color: #ffff;
+   transition: all 0.2s ease;
+}
+
+.regb:active {
+   background-color: #7e3af2db;
+}
+
+.nav-elements {
+   display: flex;
+}
+
+.nav-actions {
+   display: flex;
+}
+
+.nav-elements ul li {
+   cursor: pointer;
+   transition: all 0.3s ease;
+   border-radius: 4px;
+   user-select: none;
+}
+
+.nav-elements ul li:hover {
+   background-color: #f1f1f1;
+}
+
+.nav-elements ul li:active {
+   background-color: #dedede;
+}
+
+
+.tryani {
+   position: relative;
+   color: #000;
+}
+
+.tryani::before {
+   content: "";
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 0;
+   height: 100%;
+   background-color: #7E3AF2;
+   transition: width 0.3s;
+}
+
+.tryani:hover::before {
+   width: 100%;
+}
+
+.tryani:hover {
+   color: white;
+   /* Text color on hover */
+}

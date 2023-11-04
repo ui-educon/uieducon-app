@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "./fonts.css";
 
 a {
   color: inherit;
@@ -24,9 +25,31 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: "Inter", sans-serif;
+  font-family: "TT Norms Pro";
 }
 
 .common-frame-box {
-  @apply max-w-[1440px] mx-auto xxl:px-20 md:px-10 xxs:px-5 px-2
+  @apply max-w-[1440px] mx-auto xxl:px-20 md:px-10 xxs:px-5 px-2;
+}
+
+.uicolor {
+  color: #7e3af2;
+}
+
+.uibg {
+  background-color: #7e3af2;
+}
+
+li {
+  list-style: none;
+}
+
+a.active {
+  font-weight: 700;
+  color: #7e3af2;
+  text-decoration: underline;
+}
+
+>>>>>>>4aa54dc93396ebd3e3da6cb34f1f82677df20cd7 .uibg {
+  background-color: #7e3af2;
 }
