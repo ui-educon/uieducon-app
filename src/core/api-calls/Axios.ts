@@ -19,12 +19,12 @@ axiosInstance.defaults.headers.post['Access-Control-Allow-Origin'] = '*'
 // ************************
 
 // For getting Authentication header (accessToken) for API calls
-const authHeader = async (requestParams: any) => {
+const authHeader = async (requestParams: any, forceRefresh?: boolean) => {
   let accessToken = ''
 
   // For getting access token on the client side
   if (typeof window !== 'undefined' && firebaseAuth.currentUser) {
-    accessToken = await firebaseAuth.currentUser.getIdToken();
+    accessToken = await firebaseAuth.currentUser.getIdToken(forceRefresh);
   }
   else {
     // For getting access token on the server side (//TODO: may cause problems in refreshing token)
@@ -45,7 +45,7 @@ const getRequestParams = (requestParams: any) => {
 // *************************
 
 // Get call handler
-const handleGet = async (url: string, requestParams: any) => {
+const handleGet = async (url: string, requestParams: any, forceRefreshAuthToken?: boolean) => {
   try {
     let params = getRequestParams(requestParams)
     const resp = await axiosInstance({
@@ -53,7 +53,7 @@ const handleGet = async (url: string, requestParams: any) => {
       url,
       params: params,
       headers: {
-        'Authorization': await authHeader(requestParams)
+        'Authorization': await authHeader(requestParams, forceRefreshAuthToken)
       }
     })
 
@@ -72,14 +72,14 @@ const handleGet = async (url: string, requestParams: any) => {
 }
 
 // Post call handler
-const handlePost = async (url: string, requestData: any, requestParams: any) => {
+const handlePost = async (url: string, requestData: any, requestParams: any, forceRefreshAuthToken?: boolean) => {
   try {
     let params = getRequestParams(requestParams);
     const resp = await axiosInstance({
       method: 'POST',
       url,
       headers: {
-        'Authorization': await authHeader(requestParams)
+        'Authorization': await authHeader(requestParams, forceRefreshAuthToken)
       },
       data: requestData,
       params: params
@@ -99,14 +99,14 @@ const handlePost = async (url: string, requestData: any, requestParams: any) => 
 }
 
 // Delete call handler
-const handleDelete = async (url: string, requestData: any, requestParams: any) => {
+const handleDelete = async (url: string, requestData: any, requestParams: any, forceRefreshAuthToken?: boolean) => {
   try {
     let params = getRequestParams(requestParams)
     const resp = await axiosInstance({
       method: 'DELETE',
       url,
       headers: {
-        'Authorization': await authHeader(requestParams)
+        'Authorization': await authHeader(requestParams, forceRefreshAuthToken)
       },
       data: requestData,
       params: params

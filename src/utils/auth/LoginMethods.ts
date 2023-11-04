@@ -1,9 +1,5 @@
 import firebaseAuth from "@/firebase.config";
-import { User, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
-
-const resetPasswordHandler = () => {
-  sendPasswordResetEmail(firebaseAuth, "vmbansal2001@gmail.com");
-}
+import { User, signInWithEmailAndPassword } from "firebase/auth";
 
 export type loginResponse = {
   type: "success",

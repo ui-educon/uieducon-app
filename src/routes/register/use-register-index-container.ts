@@ -2,6 +2,7 @@ import { userRegistrationHandler } from '@/utils/auth/SignupMethods';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 const useRegisterIndexContainer = () => {
   const {
@@ -23,6 +24,7 @@ const useRegisterIndexContainer = () => {
 
     if (registerRes.type === "success") {
       router.push('/')
+      toast.success("You are sucessfully registered. Please verify your email by clicking on verification link mailed to your registered email address", { duration: 10000 })
     } else {
       setErrorMessage(registerRes.message)
     }
