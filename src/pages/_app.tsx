@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { Toaster } from 'react-hot-toast'
 import { wrapper } from "@/core/redux/store";
 import AuthProvider from "@/components/hoc/auth-provider";
+import Layout from "@/components/Layout/Layout";
 
 const MyApp: React.FC<AppProps> = ({ Component, ...rest }) => {
 
@@ -13,7 +14,9 @@ const MyApp: React.FC<AppProps> = ({ Component, ...rest }) => {
   return (
     <Provider store={store}>
       <AuthProvider>
-        <Component {...props.pageProps} />
+        <Layout>
+          <Component {...props.pageProps} />
+        </Layout>
         <Toaster containerClassName="mt-20" />
       </AuthProvider>
     </Provider>

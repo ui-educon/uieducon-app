@@ -14,6 +14,7 @@ const PrivateRouteWrapper = ({ children }: Props) => {
   if (userLoading) {
     return <FullScreenLoader />
   } else if (!currentUser) {
+    sessionStorage.setItem("loginFrom", router.asPath)
     router.push('/login');
     return <></>
   } else if (!isEmailVerified) {

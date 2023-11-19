@@ -1,13 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from './common/button'
 import Link from 'next/link'
 import { useAppSelector } from '@/core/redux/hooks'
+import { sendEmailVerification } from 'firebase/auth'
+import firebaseAuth from '@/firebase.config'
+import toast from 'react-hot-toast'
 
 type Props = {}
 
 const EmailVerifyScreen = (props: Props) => {
 
   const currentUser = useAppSelector(state => state.authState.currentUser)
+
+  const [buttonLoading, setButtonLoading] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+
+  const sendVerificationEmailHandler = async () => {
+    setButtonLoading(true);
+    if (firebaseAuth.currentUser) {
+      await sendEmailVerification(firebaseAuth.currentUser);
+      setButtonDisabled(true);
+    } else {
+      toast.error("Something Unexpected Happened");
+    }
+    setButtonLoading(false);
+  }
 
   return (
     <main className='h-[calc(100vh-72px)] flex justify-center items-center common-frame-box'>
@@ -23,9 +40,10 @@ const EmailVerifyScreen = (props: Props) => {
 
         <div className='flex gap-4 flex-col'>
           <Button
-            // loading={buttonLoading}
-            className='w-full min-w-[242px] py-4 bg-[#7E3AF2] rounded-[4px] text-white'
-          // onClick={loginButtonClickHandler}
+            disabled={buttonDisabled}
+            loading={buttonLoading}
+            className={`w-full min-w-[242px] py-4 bg-[#7E3AF2] rounded-[4px] text-white ${buttonDisabled && "opacity-30"}`}
+            onClick={sendVerificationEmailHandler}
           >
             Resend Verification Link
           </Button>

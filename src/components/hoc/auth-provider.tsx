@@ -25,7 +25,7 @@ const AuthProvider = ({ children }: Props) => {
 
   useEffect(() => {
     firebaseAuth.onAuthStateChanged((user) => {
-      if (user && user.email) {
+      if (user && user.email && user.photoURL && user.displayName) {
         const userToDispatch = {
           email: user.email,
           photoURL: user.photoURL,
@@ -33,11 +33,7 @@ const AuthProvider = ({ children }: Props) => {
         };
         dispatch(setAuthCurrentUser(userToDispatch));
         dispatch(setAuthIsEmailVerified(user.emailVerified));
-        if (user.emailVerified) {
-          fetchUserDetails(user);
-        } else {
-          dispatch(setAuthUserLoading(false));
-        }
+        fetchUserDetails(user);
       } else {
         dispatch(setAuthCurrentUser(null));
         dispatch(setAuthUserLoading(false));

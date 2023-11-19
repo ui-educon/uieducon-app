@@ -1,8 +1,22 @@
 import React, { useState } from "react";
 // import "./Navbar.css";
+import { useAppSelector } from '@/core/redux/hooks';
 import Link from "next/link";
+import Image from "next/image";
+import UserDropdown from "./UserDropdown";
+import { useRouter } from "next/router";
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+
+  const { currentUser, userLoading } = useAppSelector(state => state.authState)
+
+  const router = useRouter();
+
+  const loginButtonClickHandler = () => {
+    sessionStorage.setItem("loginFrom", router.asPath)
+  }
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
@@ -71,9 +85,24 @@ const Navbar = () => {
               </Link>
 
               {/* Login */}
-              <Link href="/login">
-                <button className="regb py-2.5 px-10 ml-4 ">Login</button>
-              </Link>
+              {userLoading ? <></> :
+                currentUser ?
+                  <div className="relative">
+                    <button onClick={() => setUserDropdownOpen(!userDropdownOpen)} className="border border-gray-300 rounded-full p-1 h-10 w-10">
+                      <Image
+                        src={currentUser.photoURL}
+                        alt={currentUser.displayName}
+                        width={50}
+                        height={50}
+                        className="h-full w-full rounded-full"
+                      />
+                    </button>
+                    {userDropdownOpen && <UserDropdown />}
+                  </div> :
+                  <Link href="/login" className="regb py-2.5 px-10 ml-4" onClick={loginButtonClickHandler}>
+                    Login
+                  </Link>
+              }
             </div>
             <div className="md:hidden flex items-center">
               <button
@@ -148,11 +177,27 @@ const Navbar = () => {
             </Link>
 
             {/* Login */}
-            <Link href="/Login">
-              <button className=" bg-white font-bold rounded my-2 py-2.5 px-6 ml-4 ">
-                Login
-              </button>
-            </Link>
+            {userLoading ? <></> :
+              currentUser ?
+                <div className="relative w-fit">
+                  <button onClick={() => setUserDropdownOpen(!userDropdownOpen)} className="flex gap-1 items-center ml-2">
+                    <div className="border border-gray-300 rounded-full p-1 h-8 w-8">
+                      <Image
+                        src={currentUser.photoURL}
+                        alt={currentUser.displayName}
+                        width={50}
+                        height={50}
+                        className="h-full w-full rounded-full"
+                      />
+                    </div>
+                    <p className="text-white font-medium">{currentUser.displayName}</p>
+                  </button>
+                  {userDropdownOpen && <UserDropdown />}
+                </div> :
+                <Link href="/login" className="regb py-2.5 px-10 ml-4" onClick={loginButtonClickHandler}>
+                  Login
+                </Link>
+            }
           </div>
         </div>
       )}

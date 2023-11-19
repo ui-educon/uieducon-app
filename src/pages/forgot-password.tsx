@@ -1,3 +1,4 @@
+import LoginRouteWrapper from '@/components/wrappers/login-route-wrapper'
 import ForgotPasswordIndexContainer from '@/routes/forgot-password/forgot-password-index-container'
 import Head from 'next/head'
 import React from 'react'
@@ -10,7 +11,9 @@ const ForgotPassword = (props: Props) => {
       <Head>
         <title>Forgot Password</title>
       </Head>
-      <ForgotPasswordIndexContainer />
+      <LoginRouteWrapper>
+        <ForgotPasswordIndexContainer />
+      </LoginRouteWrapper>
     </>
   )
 }

@@ -83,6 +83,11 @@ const nextConfig = {
         hostname: "icnda.in",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "ui-avatars.com",
+        port: "",
+      },
     ],
   },
 };
