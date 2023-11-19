@@ -1,6 +1,7 @@
 import { useAppSelector } from "@/core/redux/hooks";
 import FullScreenLoader from "../Loaders/FullScreenLoader";
 import { useRouter } from "next/router";
+import EmailVerifyScreen from "../email-verify-screen";
 
 type Props = {
   children: any
@@ -16,7 +17,7 @@ const PrivateRouteWrapper = ({ children }: Props) => {
     router.push('/login');
     return <></>
   } else if (!isEmailVerified) {
-    return <div>Email Not Verified</div>
+    return <EmailVerifyScreen />
   } else {
     return children;
   }
