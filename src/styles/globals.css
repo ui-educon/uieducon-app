@@ -3,6 +3,12 @@
 @tailwind utilities;
 @import "./fonts.css";
 
+@layer components {
+  .hiddenScrollBar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -26,6 +32,19 @@ body {
   padding: 0;
   margin: 0;
   font-family: "TT Norms Pro";
+}
+
+::-webkit-scrollbar,
+::-webkit-scrollbar-thumb {
+  width: 8px;
+  border-radius: 13px;
+  background-clip: padding-box;
+  border: 1px solid transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 0 10px;
+  color: #7e3af2;
 }
 
 .common-frame-box {

@@ -2,8 +2,10 @@ import React from "react";
 import logo from "../../Images/logo.png";
 import Image from "next/image";
 import Link from "next/link";
+import { withRouter } from "next/router";
 
-const Footer = () => {
+const Footer = ({ router }) => {
+  if (router.pathname.includes("/learn")) return null;
   return (
     <div>
       {/* Footer section with social media icons and newsletter sign-up */}
@@ -172,4 +174,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default withRouter(Footer);
