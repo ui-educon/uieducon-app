@@ -1,14 +1,26 @@
-import Layout from "@/components/Layout/Layout";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import "@/css/globalStyles.css";
+import { Provider } from "react-redux";
 import { Toaster } from 'react-hot-toast'
+import { wrapper } from "@/core/redux/store";
+import AuthProvider from "@/components/hoc/auth-provider";
+import Layout from "@/components/Layout/Layout";
 
-export default function App({ Component, pageProps }: AppProps) {
+const MyApp: React.FC<AppProps> = ({ Component, ...rest }) => {
+
+  const { store, props } = wrapper.useWrappedStore(rest);
+
   return (
-    <Layout>
-      <Component {...pageProps} />
-      <Toaster containerClassName="mt-20" />
-    </Layout>
+    <Provider store={store}>
+      <AuthProvider>
+        <Layout>
+          <Component {...props.pageProps} />
+        </Layout>
+        <Toaster containerClassName="mt-20" />
+      </AuthProvider>
+    </Provider>
   );
 }
+
+export default MyApp

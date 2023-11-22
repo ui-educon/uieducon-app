@@ -1,6 +1,4 @@
 import { TextInput } from '@/components/common/text-input';
-import firebaseAuth from '@/firebase.config';
-import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import React from 'react'
 import useRegisterIndexContainer from './use-register-index-container';
 import Button from '@/components/common/button';
