@@ -135,7 +135,7 @@ const LearnContainer = (props: Props) => {
   };
   useEffect(() => {
     setCourseData(seedData);
-    setCurrentContent(seedData[0]);
+    // setCurrentContent(seedData[0]);
   }, []);
   return (
     <main className="w-full h-[calc(100vh-64px-16px)] overflow-auto w-full flex flex-col px-4 pt-8 md:px-8 md:flex-row md:justify-between">

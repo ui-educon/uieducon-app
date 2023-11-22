@@ -1,4 +1,4 @@
-import React, { useContext, createContext, useState } from "react";
+import React, { useContext, createContext, useState, useEffect } from "react";
 
 type Props = {
   children: React.ReactNode;
@@ -23,6 +23,11 @@ const LearnContextProvider = ({ children }: Props) => {
     null
   );
   const [displayBar, setDisplayBar] = useState<Boolean>(false);
+
+  useEffect(() => {
+    if (screen.width >= 768) setDisplayBar(true);
+  }, []);
+
   return (
     <LearnContext.Provider
       value={{ currentContent, setCurrentContent, displayBar, setDisplayBar }}
