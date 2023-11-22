@@ -45,7 +45,7 @@ const getRequestParams = (requestParams: any) => {
 // *************************
 
 // Get call handler
-const handleGet = async (url: string, requestParams: any, forceRefreshAuthToken?: boolean) => {
+const handleGet = async (url: string, requestParams?: any, forceRefreshAuthToken?: boolean) => {
   try {
     let params = getRequestParams(requestParams)
     const resp = await axiosInstance({
@@ -57,73 +57,40 @@ const handleGet = async (url: string, requestParams: any, forceRefreshAuthToken?
       }
     })
 
-    if (resp.status === 200) {
-      return {
-        status: resp.status,
-        data: resp.data,
-        headers: resp.headers
-      }
+    return {
+      status: resp.status,
+      data: resp.data,
+      headers: resp.headers
     }
-
-    throw new Error(resp.statusText)
   } catch (err: any) {
     return Promise.reject(err.message ? err.message : '')
   }
 }
 
 // Post call handler
-const handlePost = async (url: string, requestData: any, requestParams: any, forceRefreshAuthToken?: boolean) => {
+const handlePost = async (url: string, requestData?: any, requestParams?: any, forceRefreshAuthToken?: boolean) => {
   try {
     let params = getRequestParams(requestParams);
     const resp = await axiosInstance({
       method: 'POST',
       url,
       headers: {
-        'Authorization': await authHeader(requestParams, forceRefreshAuthToken)
-      },
-      data: requestData,
-      params: params
-    })
-    if (resp.status === 200) {
-      return {
-        status: resp.status,
-        data: resp.data,
-        headers: resp.headers
-      }
-    }
-
-    throw new Error(resp.statusText);
-  } catch (err: any) {
-    return Promise.reject(err.message ? err.message : '')
-  }
-}
-
-// Delete call handler
-const handleDelete = async (url: string, requestData: any, requestParams: any, forceRefreshAuthToken?: boolean) => {
-  try {
-    let params = getRequestParams(requestParams)
-    const resp = await axiosInstance({
-      method: 'DELETE',
-      url,
-      headers: {
+        'Content-Type': 'application/json',
         'Authorization': await authHeader(requestParams, forceRefreshAuthToken)
       },
       data: requestData,
       params: params
     })
 
-    if (resp.status === 200) {
-      return {
-        status: resp.status,
-        data: resp.data,
-        headers: resp.headers
-      }
+    return {
+      status: resp.status,
+      data: resp.data,
+      headers: resp.headers
     }
-
-    throw new Error(resp.statusText);
   } catch (err: any) {
     return Promise.reject(err.message ? err.message : '')
   }
 }
 
-export { handleGet, handlePost, handleDelete }
+
+export { handleGet, handlePost }
