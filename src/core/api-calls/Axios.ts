@@ -75,6 +75,7 @@ const handlePost = async (url: string, requestData?: any, requestParams?: any, f
       method: 'POST',
       url,
       headers: {
+        'Content-Type': 'application/json',
         'Authorization': await authHeader(requestParams, forceRefreshAuthToken)
       },
       data: requestData,
