@@ -16,7 +16,10 @@ const PrivateRouteWrapper = ({ children }: Props) => {
     router.push('/login');
     return <></>
   } else if (!isEmailVerified) {
-    return <div>Email Not Verified</div>
+    return <div>
+      Email Not Verified
+      {children}
+      </div>
   } else {
     return children;
   }
