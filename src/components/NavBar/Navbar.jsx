@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // import "./Navbar.css";
-import { useAppSelector } from '@/core/redux/hooks';
+import { useAppSelector } from "@/core/redux/hooks";
 import Link from "next/link";
 import Image from "next/image";
 import UserDropdown from "./UserDropdown";
@@ -10,13 +10,15 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
 
-  const { currentUser, userLoading } = useAppSelector(state => state.authState)
+  const { currentUser, userLoading } = useAppSelector(
+    (state) => state.authState
+  );
 
   const router = useRouter();
 
   const loginButtonClickHandler = () => {
-    sessionStorage.setItem("loginFrom", router.asPath)
-  }
+    sessionStorage.setItem("loginFrom", router.asPath);
+  };
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
@@ -48,7 +50,7 @@ const Navbar = () => {
                 </li>
               </Link>
               {/* courses  */}
-              <Link href="/my-courses">
+              <Link href="/courses">
                 <li className="hover:underline  px-3 py-2 rounded-md  font-medium">
                   Courses
                 </li>
@@ -85,24 +87,33 @@ const Navbar = () => {
               </Link>
 
               {/* Login */}
-              {userLoading ? <></> :
-                currentUser ?
-                  <div className="relative">
-                    <button onClick={() => setUserDropdownOpen(!userDropdownOpen)} className="border border-gray-300 rounded-full p-1 h-10 w-10">
-                      <Image
-                        src={currentUser.photoURL}
-                        alt={currentUser.displayName}
-                        width={50}
-                        height={50}
-                        className="h-full w-full rounded-full"
-                      />
-                    </button>
-                    {userDropdownOpen && <UserDropdown />}
-                  </div> :
-                  <Link href="/login" className="regb py-2.5 px-10 ml-4" onClick={loginButtonClickHandler}>
-                    Login
-                  </Link>
-              }
+              {userLoading ? (
+                <></>
+              ) : currentUser ? (
+                <div className="relative">
+                  <button
+                    onClick={() => setUserDropdownOpen(!userDropdownOpen)}
+                    className="border border-gray-300 rounded-full p-1 h-10 w-10"
+                  >
+                    <Image
+                      src={currentUser.photoURL}
+                      alt={currentUser.displayName}
+                      width={50}
+                      height={50}
+                      className="h-full w-full rounded-full"
+                    />
+                  </button>
+                  {userDropdownOpen && <UserDropdown />}
+                </div>
+              ) : (
+                <Link
+                  href="/login"
+                  className="regb py-2.5 px-10 ml-4"
+                  onClick={loginButtonClickHandler}
+                >
+                  Login
+                </Link>
+              )}
             </div>
             <div className="md:hidden flex items-center">
               <button
@@ -177,27 +188,38 @@ const Navbar = () => {
             </Link>
 
             {/* Login */}
-            {userLoading ? <></> :
-              currentUser ?
-                <div className="relative w-fit">
-                  <button onClick={() => setUserDropdownOpen(!userDropdownOpen)} className="flex gap-1 items-center ml-2">
-                    <div className="border border-gray-300 rounded-full p-1 h-8 w-8">
-                      <Image
-                        src={currentUser.photoURL}
-                        alt={currentUser.displayName}
-                        width={50}
-                        height={50}
-                        className="h-full w-full rounded-full"
-                      />
-                    </div>
-                    <p className="text-white font-medium">{currentUser.displayName}</p>
-                  </button>
-                  {userDropdownOpen && <UserDropdown />}
-                </div> :
-                <Link href="/login" className="regb py-2.5 px-10 ml-4" onClick={loginButtonClickHandler}>
-                  Login
-                </Link>
-            }
+            {userLoading ? (
+              <></>
+            ) : currentUser ? (
+              <div className="relative w-fit">
+                <button
+                  onClick={() => setUserDropdownOpen(!userDropdownOpen)}
+                  className="flex gap-1 items-center ml-2"
+                >
+                  <div className="border border-gray-300 rounded-full p-1 h-8 w-8">
+                    <Image
+                      src={currentUser.photoURL}
+                      alt={currentUser.displayName}
+                      width={50}
+                      height={50}
+                      className="h-full w-full rounded-full"
+                    />
+                  </div>
+                  <p className="text-white font-medium">
+                    {currentUser.displayName}
+                  </p>
+                </button>
+                {userDropdownOpen && <UserDropdown />}
+              </div>
+            ) : (
+              <Link
+                href="/login"
+                className="regb py-2.5 px-10 ml-4"
+                onClick={loginButtonClickHandler}
+              >
+                Login
+              </Link>
+            )}
           </div>
         </div>
       )}

@@ -6,8 +6,10 @@ const Layout = ({ children }: PropsWithChildren) => {
   return (
     <>
       <Navbar />
-      {children}
-      <Footer />
+      <div className="h-[calc(100vh-64px-16px)] overflow-scroll">
+        {children}
+        <Footer />
+      </div>
     </>
   );
 };
