@@ -2,15 +2,20 @@ import React, { useEffect, useState } from "react";
 import chevRight from "@/Images/svgs/chevRight.svg";
 import Image from "next/image";
 import { learnState } from "@/context/LearnContextProvider";
+import lockIcon from "@/Images/svgs/lock-icon.svg";
 
 type Props = {
   contentData: Array<ResourceType>;
+  playingIdx: number;
+  updatePlayingIndex: Function;
 };
 
-const ContentBar = ({ contentData }: Props) => {
+const ContentBar = ({ contentData, playingIdx, updatePlayingIndex }: Props) => {
   // const [displayBar, setDisplayBar] = useState<Boolean>(false);
   const { displayBar, setDisplayBar, setCurrentContent } = learnState();
   const [screenWidth, setScreenWidth] = useState<number>(280);
+
+  const { currentIndex } = learnState();
 
   useEffect(() => {
     setScreenWidth(screen?.width);
@@ -55,11 +60,21 @@ const ContentBar = ({ contentData }: Props) => {
         {contentData?.map((content: ResourceType, idx: number) => {
           return (
             <div
-              className="text-lg p-2 w-11/12 cursor-pointer hover:bg-[#7e3af23a]"
+              className="text-lg p-2 w-11/12 cursor-pointer hover:bg-[#7e3af23a] flex justify-between items-center"
               key={idx}
-              onClick={() => setCurrentContent(content)}
+              onClick={() => {
+                if (idx <= currentIndex) {
+                  updatePlayingIndex(idx);
+                  setCurrentContent(content);
+                }
+              }}
             >
-              {idx + 1}.&nbsp;&nbsp;{content.title}
+              <span className={idx > currentIndex ? "text-neutral-400" : ""}>
+                {idx + 1}.&nbsp;&nbsp;{content.title}
+              </span>
+              {idx > currentIndex ? (
+                <Image src={lockIcon} width={20} height={20} alt="" />
+              ) : null}
             </div>
           );
         })}

@@ -1,25 +1,25 @@
-import { handleGet } from '@/core/api-calls/Axios'
-import { useAppSelector } from '@/core/redux/hooks'
-import React, { useEffect, useState } from 'react'
+import { handleGet } from "@/core/api-calls/Axios";
+import { useAppSelector } from "@/core/redux/hooks";
+import { useEffect, useState } from "react";
 
-type Props = {}
+type Props = {};
 
 const useMyCoursesHook = () => {
-  const [allCoursesList, setAllCoursesList] = useState<any[]>([])
-  const { currentUser } = useAppSelector(state => state.authState)
-  const [loading, setLoading] = useState(true)
+  const [allCoursesList, setAllCoursesList] = useState<any[]>([]);
+  const { currentUser } = useAppSelector((state) => state.authState);
+  const [loading, setLoading] = useState(true);
 
   const fetchAllCourses = async () => {
-    const allCoursesRes = await handleGet("/course/get-all-courses")
-    setAllCoursesList(allCoursesRes.data)
-    setLoading(false)
-  }
+    const allCoursesRes = await handleGet("/course/get-all-courses");
+    setAllCoursesList(allCoursesRes.data);
+    setLoading(false);
+  };
 
   useEffect(() => {
-    fetchAllCourses()
-  }, [])
+    fetchAllCourses();
+  }, []);
 
-  return { loading, allCoursesList,currentUser }
-}
+  return { loading, allCoursesList, currentUser };
+};
 
-export default useMyCoursesHook
+export default useMyCoursesHook;

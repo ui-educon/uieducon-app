@@ -1,26 +1,38 @@
-import { handleGet } from '@/core/api-calls/Axios';
-import { setAuthCurrentUser, setAuthFirebaseLoading, setAuthIsEmailVerified, setAuthUserLoading } from '@/core/redux/reducers/auth-state-reducer/auth-state-reducer';
-import { setUserData } from '@/core/redux/reducers/user-data-reducer/user-data-reducer';
-import firebaseAuth from '@/firebase.config';
-import { User } from 'firebase/auth';
-import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux';
+import { handleGet } from "@/core/api-calls/Axios";
+import {
+  setAuthCurrentUser,
+  setAuthFirebaseLoading,
+  setAuthIsEmailVerified,
+  setAuthUserLoading,
+} from "@/core/redux/reducers/auth-state-reducer/auth-state-reducer";
+import { setPackages } from "@/core/redux/reducers/purchased-packages-reducer/purchased-packages-reducer";
+import { setUserData } from "@/core/redux/reducers/user-data-reducer/user-data-reducer";
+import firebaseAuth from "@/firebase.config";
+import { User } from "firebase/auth";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 type Props = {
-  children: any
-}
+  children: any;
+};
 
 const AuthProvider = ({ children }: Props) => {
-
   const dispatch = useDispatch();
 
   const fetchUserDetails = async (user: User) => {
     dispatch(setAuthUserLoading(true));
 
-    const userDetails = (await handleGet("/user/get-details-by-id", { user_id: user.uid })).data;
+    const userDetails = (
+      await handleGet("/user/get-details-by-id", { user_id: user.uid })
+    ).data;
 
     dispatch(setUserData(userDetails));
     dispatch(setAuthUserLoading(false));
+
+    const userPackages = (await handleGet("/user/get-all-packages-purchased"))
+      .data;
+
+    dispatch(setPackages(userPackages));
   };
 
   useEffect(() => {
@@ -42,7 +54,7 @@ const AuthProvider = ({ children }: Props) => {
     });
   }, []);
 
-  return (children)
-}
+  return children;
+};
 
-export default AuthProvider
+export default AuthProvider;

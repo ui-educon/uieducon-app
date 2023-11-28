@@ -1,11 +1,18 @@
-import { handlePost } from '@/core/api-calls/Axios';
-import { getRazorpayObjectForCourseCheckout } from '@/core/api-calls/checkout';
-import { useAppSelector } from '@/core/redux/hooks';
-import React, { useState } from 'react'
+import { handlePost } from "@/core/api-calls/Axios";
+import { getRazorpayObjectForCourseCheckout } from "@/core/api-calls/checkout";
+import { useAppSelector } from "@/core/redux/hooks";
+import React, { useState } from "react";
 
-const usePurchaseCourseHook = (courseId: string,pricingINR:string) => {
+const usePurchaseCourseHook = (
+  courseId: String | undefined,
+  pricingINR: Number | undefined
+) => {
+  console.log(courseId, pricingINR);
 
-  const { currentUser } = useAppSelector(state => state.authState)
+  if (!courseId && !pricingINR)
+    return { showButtonLoader: false, makeCheckout: () => {} };
+
+  const { currentUser } = useAppSelector((state) => state.authState);
   const [showButtonLoader, setShowButtonLoader] = useState(false);
 
   // *************************************************
@@ -30,19 +37,19 @@ const usePurchaseCourseHook = (courseId: string,pricingINR:string) => {
   //      AFTER PURCHASE HANDLER FUNCTION
   // *************************************************
 
-  async function razorpaySuccessHandler() {
-
-  }
+  async function razorpaySuccessHandler() {}
 
   // *************************************************
   //      SPAWN RAZORPAY HANDLER FUNCTION
   // *************************************************
 
   const displayRazorpay = async (razorpayPricing: any) => {
-    console.log("razorpayPricing",razorpayPricing);
-    
+    console.log("razorpayPricing", razorpayPricing);
+
     //Load Razorpay script
-    const isScriptLoaded = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
+    const isScriptLoaded = await loadScript(
+      "https://checkout.razorpay.com/v1/checkout.js"
+    );
 
     if (!isScriptLoaded) {
       alert("Razorpay SDK failed to load");
@@ -55,21 +62,26 @@ const usePurchaseCourseHook = (courseId: string,pricingINR:string) => {
       key: "rzp_test_Ias0ehV3Ab3Fpk",
       name: "UI Educon Pvt. Ltd",
       description: "UI Educon Course",
-      order_id:razorpayPricing?.id,
-      amount:pricingINR.toString(),
+      order_id: razorpayPricing?.id,
+      amount: pricingINR?.toString(),
       handler: async function (response: any) {
         setShowButtonLoader(false);
         const data = {
-          course_id:courseId,
+          course_id: courseId,
           order_creation_id: razorpayPricing?.id,
           razorpay_payment_id: response.razorpay_payment_id,
         };
-        const result = await handlePost("/package/create-package-order", data,{},true);
+        const result = await handlePost(
+          "/package/create-package-order",
+          data,
+          {},
+          true
+        );
         // setShowButtonLoader(false);
       },
       prefill: {
         name: currentUser?.displayName,
-        email: currentUser?.email
+        email: currentUser?.email,
       },
       modal: {
         ondismiss: function () {
@@ -82,12 +94,12 @@ const usePurchaseCourseHook = (courseId: string,pricingINR:string) => {
     };
 
     const paymentObject = new (window as any).Razorpay(razorpayConfiguration);
-    paymentObject.once('ready', () => {
-      console.log("Methods",paymentObject.methods);
+    paymentObject.once("ready", () => {
+      console.log("Methods", paymentObject.methods);
       console.log(paymentObject.methods.emi_plans);
-    })
+    });
     paymentObject.open();
-  }
+  };
 
   // *************************************************
   //                START PURCHASE
@@ -97,9 +109,11 @@ const usePurchaseCourseHook = (courseId: string,pricingINR:string) => {
     setShowButtonLoader(true);
 
     const razorpayPricingBody = {
-      course_id: courseId
+      course_id: courseId,
     };
-    const razorpayPricing = await getRazorpayObjectForCourseCheckout(razorpayPricingBody);
+    const razorpayPricing = await getRazorpayObjectForCourseCheckout(
+      razorpayPricingBody
+    );
 
     if (!razorpayPricing) {
       alert("Server error");
@@ -110,7 +124,7 @@ const usePurchaseCourseHook = (courseId: string,pricingINR:string) => {
     }
   }
 
-  return { showButtonLoader, makeCheckout }
-}
+  return { showButtonLoader, makeCheckout };
+};
 
-export default usePurchaseCourseHook
+export default usePurchaseCourseHook;

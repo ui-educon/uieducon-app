@@ -4,6 +4,9 @@ import Image from "next/image";
 import chevRight from "@/Images/svgs/chevRight.svg";
 import dynamic from "next/dynamic";
 import { learnState } from "@/context/LearnContextProvider";
+import { useAppSelector } from "@/core/redux/hooks";
+import { useParams, useRouter } from "next/navigation";
+import { handleGet, handlePost } from "@/core/api-calls/Axios";
 
 type Props = {};
 
@@ -17,130 +20,177 @@ const seedData: Array<ResourceType> = [
     type: "video",
     title: "Get Started with AI",
     desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    videoURL:
-      "https://player.vimeo.com/progressive_redirect/playback/417775358/rendition/1080p/file.mp4?loc=external&oauth2_token_id=1672456103&signature=c9202e85e15b5166b2ededd6d2708d8296a213b3f31fa40c6f134af373053bf2",
+    videoURL: "https://vimeo.com/784547775",
     id: "0",
   },
   {
     type: "video",
     title: "Example Title 1",
     desc: "Example Desc 1",
-    videoURL: "https://www.example.com/video1",
+    videoURL: "https://vimeo.com/784547786",
     id: "1",
   },
   {
     type: "video",
     title: "Example Title 2",
     desc: "Example Desc 2",
-    videoURL: "https://www.example.com/video2",
+    videoURL: "https://vimeo.com/784547772",
     id: "2",
   },
   {
     type: "video",
     title: "Example Title 3",
     desc: "Example Desc 3",
-    videoURL: "https://www.example.com/video3",
+    videoURL: "https://vimeo.com/784547687",
     id: "3",
   },
   {
     type: "video",
     title: "Example Title 4",
     desc: "Example Desc 4",
-    videoURL: "https://www.example.com/video4",
+    videoURL: "https://vimeo.com/784546783",
     id: "4",
   },
   {
     type: "video",
     title: "Example Title 5",
     desc: "Example Desc 5",
-    videoURL: "https://www.example.com/video5",
+    videoURL: "https://vimeo.com/784547764",
     id: "5",
   },
   {
     type: "video",
     title: "Example Title 6",
     desc: "Example Desc 6",
-    videoURL: "https://www.example.com/video6",
+    videoURL: "https://vimeo.com/784547736",
     id: "6",
   },
   {
     type: "video",
     title: "Example Title 7",
     desc: "Example Desc 7",
-    videoURL: "https://www.example.com/video7",
+    videoURL: "https://vimeo.com/784547745",
     id: "7",
   },
   {
     type: "video",
     title: "Example Title 8",
     desc: "Example Desc 8",
-    videoURL: "https://www.example.com/video8",
+    videoURL: "https://vimeo.com/784547740",
     id: "8",
   },
   {
     type: "video",
     title: "Example Title 9",
     desc: "Example Desc 9",
-    videoURL: "https://www.example.com/video9",
+    videoURL: "https://vimeo.com/784547711",
     id: "9",
   },
   {
     type: "video",
     title: "Example Title 10",
     desc: "Example Desc 10",
-    videoURL: "https://www.example.com/video10",
+    videoURL: "https://vimeo.com/784547695",
     id: "10",
   },
   {
     type: "video",
     title: "Example Title 11",
     desc: "Example Desc 11",
-    videoURL: "https://www.example.com/video11",
+    videoURL: "https://vimeo.com/784547673",
     id: "11",
   },
   {
     type: "video",
     title: "Example Title 12",
     desc: "Example Desc 12",
-    videoURL: "https://www.example.com/video12",
+    videoURL: "https://vimeo.com/784547693",
     id: "12",
   },
   {
     type: "video",
     title: "Example Title 13",
     desc: "Example Desc 13",
-    videoURL: "https://www.example.com/video13",
+    videoURL: "https://vimeo.com/784546836",
     id: "13",
   },
   {
     type: "video",
     title: "Example Title 14",
     desc: "Example Desc 14",
-    videoURL: "https://www.example.com/video14",
+    videoURL: "https://vimeo.com/784547734",
     id: "14",
   },
 ];
 
 const LearnContainer = (props: Props) => {
   let courseName = "Mastering the art of public speaking";
-  const { currentContent, setCurrentContent } = learnState();
+  const { currentContent, setCurrentContent, currentIndex, setCurrentIndex } =
+    learnState();
   const [courseData, setCourseData] = useState<Array<ResourceType | null>>([]);
+  const [packageData, setPackageData] = useState<packageType | null>(null);
   const [currentIdx, setCurrentIdx] = useState<number>(0);
+  const params = useParams();
+  const router = useRouter();
 
-  const changeToNext = () => {
+  const purchaseState = useAppSelector((state) => state.packagesState);
+
+  const changeToNext = async () => {
     if (currentIdx < courseData?.length) {
+      if (currentIdx == currentIndex) {
+        // hit API to update currentIndex;
+        await handlePost("/package/update-index", {
+          packageId: packageData?.currentIndex,
+        });
+        setCurrentIndex((prev: number) => ++prev);
+      }
       setCurrentContent(courseData[currentIdx + 1]);
       setCurrentIdx((prev: number) => ++prev);
     } else setCurrentContent(null);
   };
+
+  const fetchCourseData = async () => {
+    try {
+      const response = await handleGet("");
+    } catch (error) {}
+  };
+
   useEffect(() => {
+    if (purchaseState.length > 0) {
+      for (let i = 0; i < purchaseState.length; i++) {
+        const element: packageType | null = purchaseState[i];
+
+        if (element?.courseId == params.courseId) {
+          setPackageData(element);
+          setCourseData(seedData);
+          let index = element.currentIndex ? element.currentIndex : 0;
+          setCurrentIndex(index);
+          setCurrentIdx(index);
+          setCurrentContent(seedData[index]);
+
+          return;
+        }
+      }
+
+      router.replace(`/courses/${params.courseId}`);
+    }
+  }, [purchaseState]);
+
+  useEffect(() => {
+    console.log(params, purchaseState);
+
     setCourseData(seedData);
     // setCurrentContent(seedData[0]);
   }, []);
+
   return (
     <main className="w-full h-[calc(100vh-64px-16px)] overflow-auto w-full flex flex-col px-4 pt-8 md:px-8 md:flex-row md:justify-between">
       {/* <section className="w-full h-full flex flex-col px-4 pt-8"> */}
-      <ContentBar contentData={seedData} />
+      <ContentBar
+        contentData={seedData}
+        playingIdx={currentIdx}
+        updatePlayingIndex={setCurrentIdx}
+      />
       {/* </section> */}
       <section className="md:w-[70%] relative h-[calc(100%-50px)] md:h-full">
         <div className="text-lg mb-5">

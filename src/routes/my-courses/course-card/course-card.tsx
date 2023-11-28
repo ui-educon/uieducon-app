@@ -1,16 +1,22 @@
 import React from "react";
-import usePurchaseCourseHook from "./use-purchase-course-hook";
 import Image from "next/image";
+import { learnState } from "@/context/LearnContextProvider";
+import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 
 type Props = {
   courseData: any;
 };
 
 const CourseCard = ({ courseData }: Props) => {
-  const { showButtonLoader, makeCheckout } = usePurchaseCourseHook(
-    courseData?.recordId,
-    courseData?.pricingINR
-  );
+  const { setCurrentCourse } = learnState();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const courseClickHandler = (courseData: CourseType) => {
+    setCurrentCourse(courseData);
+    router.push(`${pathname}/${courseData.recordId}`);
+  };
 
   return (
     <div className="flex flex-col border justify-between w-72 rounded-[20px] shadow-lg mb-6">
@@ -32,11 +38,10 @@ const CourseCard = ({ courseData }: Props) => {
         </div>
       </div>
       <button
-        disabled={showButtonLoader}
         className="mt-3 rounded-b-[20px] text-center text-lg tracking-wider font-light py-4 border bg-[#7E3AF2] hover:bg-[#7e3af2c7] text-white w-full "
-        onClick={makeCheckout}
+        onClick={() => courseClickHandler(courseData)}
       >
-        {showButtonLoader ? "Loading..." : "Buy Now"}
+        Buy Now
       </button>
     </div>
   );

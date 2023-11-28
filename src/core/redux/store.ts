@@ -8,11 +8,13 @@ import {
 import { createWrapper, HYDRATE } from "next-redux-wrapper";
 import userDataReducer from "./reducers/user-data-reducer/user-data-reducer";
 import authStateReducer from "./reducers/auth-state-reducer/auth-state-reducer";
+import packageStateReducer from "./reducers/purchased-packages-reducer/purchased-packages-reducer";
 
 // Combined reducers
 const combinedReducer = combineReducers({
   userData: userDataReducer,
-  authState: authStateReducer
+  authState: authStateReducer,
+  packagesState: packageStateReducer,
 });
 
 //HYDRATE server redux store with client redux store

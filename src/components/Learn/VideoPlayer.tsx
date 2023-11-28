@@ -1,5 +1,6 @@
 import { learnState } from "@/context/LearnContextProvider";
-import React, { useEffect } from "react";
+import { handleGet } from "@/core/api-calls/Axios";
+import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 
 type Props = {
@@ -8,13 +9,30 @@ type Props = {
 
 const VideoPlayer = ({ onEndedHandler }: Props) => {
   const { currentContent, setCurrentContent } = learnState();
+  const [playState, setPlayState] = useState<string>("loading");
+
+  const fetchPlayableLink = async () => {
+    try {
+      setPlayState("loading");
+      const response = await handleGet("/course/get-video-data", {
+        link: currentContent?.videoURL,
+      });
+      setPlayState(response.data.link);
+    } catch (error) {}
+  };
+
   useEffect(() => {
-    console.log(currentContent);
-  }, []);
+    fetchPlayableLink();
+  }, [currentContent]);
+
   return (
     <div className="w-full h-fit lg:w-[95%] lg:h-[95%]">
       <ReactPlayer
-        url={currentContent?.videoURL}
+        url={
+          playState == "loading"
+            ? "https://europe1.discourse-cdn.com/figma/original/3X/6/1/6173a1aae8372541cfe858bbadccf198e2935f89.gif"
+            : playState
+        }
         playing={true}
         controls={true}
         light={
