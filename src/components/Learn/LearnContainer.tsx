@@ -3,7 +3,7 @@ import ContentBar from "@/components/Learn/ContentBar";
 import Image from "next/image";
 import chevRight from "@/Images/svgs/chevRight.svg";
 import dynamic from "next/dynamic";
-import { learnState } from "@/context/LearnContextProvider";
+import { LearnState } from "@/context/LearnContextProvider";
 import { useAppSelector } from "@/core/redux/hooks";
 import { useParams, useRouter } from "next/navigation";
 import { handleGet, handlePost } from "@/core/api-calls/Axios";
@@ -14,6 +14,15 @@ const DynamicVideoPlayer = dynamic(
   () => import("@/components/Learn/VideoPlayer"),
   { ssr: false }
 );
+
+interface courseDataType {
+  name: string;
+  pricingINR: number;
+  recordId: string;
+  thumbnailUrl: string;
+  sequence: Array<ResourceType | null>;
+  createdAt: any;
+}
 
 const seedData: Array<ResourceType> = [
   {
@@ -124,10 +133,9 @@ const seedData: Array<ResourceType> = [
 ];
 
 const LearnContainer = (props: Props) => {
-  let courseName = "Mastering the art of public speaking";
   const { currentContent, setCurrentContent, currentIndex, setCurrentIndex } =
-    learnState();
-  const [courseData, setCourseData] = useState<Array<ResourceType | null>>([]);
+    LearnState();
+  const [courseData, setCourseData] = useState<courseDataType | null>(null);
   const [packageData, setPackageData] = useState<packageType | null>(null);
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const params = useParams();
@@ -136,23 +144,30 @@ const LearnContainer = (props: Props) => {
   const purchaseState = useAppSelector((state) => state.packagesState);
 
   const changeToNext = async () => {
-    if (currentIdx < courseData?.length) {
+    let length = courseData?.sequence?.length || 0;
+    if (currentIdx < length) {
       if (currentIdx == currentIndex) {
         // hit API to update currentIndex;
         await handlePost("/package/update-index", {
-          packageId: packageData?.currentIndex,
+          packageId: packageData?.recordId,
         });
         setCurrentIndex((prev: number) => ++prev);
       }
-      setCurrentContent(courseData[currentIdx + 1]);
+      setCurrentContent(courseData?.sequence[currentIdx + 1]);
       setCurrentIdx((prev: number) => ++prev);
     } else setCurrentContent(null);
   };
 
   const fetchCourseData = async () => {
     try {
-      const response = await handleGet("");
-    } catch (error) {}
+      const response = await handleGet("/course/get-course-by-id", {
+        course_id: params.courseId,
+      });
+
+      setCourseData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -162,7 +177,8 @@ const LearnContainer = (props: Props) => {
 
         if (element?.courseId == params.courseId) {
           setPackageData(element);
-          setCourseData(seedData);
+          fetchCourseData();
+          // setCourseData(seedData);
           let index = element.currentIndex ? element.currentIndex : 0;
           setCurrentIndex(index);
           setCurrentIdx(index);
@@ -176,29 +192,27 @@ const LearnContainer = (props: Props) => {
     }
   }, [purchaseState]);
 
-  useEffect(() => {
-    console.log(params, purchaseState);
-
-    setCourseData(seedData);
-    // setCurrentContent(seedData[0]);
-  }, []);
-
   return (
-    <main className="w-full h-[calc(100vh-64px-16px)] overflow-auto w-full flex flex-col px-4 pt-8 md:px-8 md:flex-row md:justify-between">
+    <main className="w-full h-full overflow-hidden w-full flex flex-col px-4 pt-8 md:px-8 md:flex-row md:justify-between">
       {/* <section className="w-full h-full flex flex-col px-4 pt-8"> */}
       <ContentBar
-        contentData={seedData}
+        contentData={courseData?.sequence}
         playingIdx={currentIdx}
         updatePlayingIndex={setCurrentIdx}
       />
       {/* </section> */}
       <section className="md:w-[70%] relative h-[calc(100%-50px)] md:h-full">
         <div className="text-lg mb-5">
-          Courses &gt; {courseName} &gt; {"Video 1"}
+          Courses&nbsp;&nbsp;&gt;&nbsp;&nbsp;{courseData?.name}
+          &nbsp;&nbsp;&gt;&nbsp;&nbsp;
+          {courseData?.sequence[currentIdx]?.title}
         </div>
         <div className="h-[calc(100%-90px-28px-1.25rem)] overflow-auto hiddenScrollBar">
           {currentContent ? (
-            <DynamicVideoPlayer onEndedHandler={changeToNext} />
+            <DynamicVideoPlayer
+              onEndedHandler={changeToNext}
+              thumbnail={courseData?.thumbnailUrl}
+            />
           ) : null}
           <h4 className="text-xl font-medium mt-10 mb-5">
             {currentContent?.title}

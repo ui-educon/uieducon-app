@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import { learnState } from "@/context/LearnContextProvider";
 import { useRouter } from "next/router";
 import { usePathname } from "next/navigation";
 
@@ -9,12 +8,10 @@ type Props = {
 };
 
 const CourseCard = ({ courseData }: Props) => {
-  const { setCurrentCourse } = learnState();
   const router = useRouter();
   const pathname = usePathname();
 
   const courseClickHandler = (courseData: CourseType) => {
-    setCurrentCourse(courseData);
     router.push(`${pathname}/${courseData.recordId}`);
   };
 

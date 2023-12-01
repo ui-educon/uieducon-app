@@ -1,14 +1,15 @@
-import { learnState } from "@/context/LearnContextProvider";
+import { LearnState } from "@/context/LearnContextProvider";
 import { handleGet } from "@/core/api-calls/Axios";
 import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 
 type Props = {
   onEndedHandler: () => void;
+  thumbnail?: string;
 };
 
-const VideoPlayer = ({ onEndedHandler }: Props) => {
-  const { currentContent, setCurrentContent } = learnState();
+const VideoPlayer = ({ onEndedHandler, thumbnail }: Props) => {
+  const { currentContent } = LearnState();
   const [playState, setPlayState] = useState<string>("loading");
 
   const fetchPlayableLink = async () => {
@@ -35,9 +36,7 @@ const VideoPlayer = ({ onEndedHandler }: Props) => {
         }
         playing={true}
         controls={true}
-        light={
-          "https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fcourse&psig=AOvVaw10CaSeEE_S_eYQISsB01sP&ust=1700060761670000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCOiX_P_hw4IDFQAAAAAdAAAAABAE"
-        }
+        light={thumbnail}
         width={"100%"}
         height={"100%"}
         onEnded={onEndedHandler}

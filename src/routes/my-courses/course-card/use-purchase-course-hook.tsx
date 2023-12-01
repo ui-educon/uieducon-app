@@ -7,8 +7,6 @@ const usePurchaseCourseHook = (
   courseId: String | undefined,
   pricingINR: Number | undefined
 ) => {
-  console.log(courseId, pricingINR);
-
   if (!courseId && !pricingINR)
     return { showButtonLoader: false, makeCheckout: () => {} };
 

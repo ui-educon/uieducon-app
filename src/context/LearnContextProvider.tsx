@@ -6,23 +6,19 @@ type Props = {
 
 interface LearnContextType {
   currentContent: ResourceType | null;
-  currentCourse: CourseType | null;
   currentIndex: number;
   displayBar: Boolean;
   setDisplayBar: Function;
   setCurrentContent: Function;
-  setCurrentCourse: Function;
   setCurrentIndex: Function;
 }
 
 const LearnContext = createContext<LearnContextType>({
   currentContent: null,
-  currentCourse: null,
   currentIndex: 0,
   displayBar: false,
   setDisplayBar: () => {},
   setCurrentContent: () => {},
-  setCurrentCourse: () => {},
   setCurrentIndex: () => {},
 });
 
@@ -30,7 +26,6 @@ const LearnContextProvider = ({ children }: Props) => {
   const [currentContent, setCurrentContent] = useState<ResourceType | null>(
     null
   );
-  const [currentCourse, setCurrentCourse] = useState<CourseType | null>(null);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [displayBar, setDisplayBar] = useState<Boolean>(false);
 
@@ -43,8 +38,6 @@ const LearnContextProvider = ({ children }: Props) => {
       value={{
         currentContent,
         setCurrentContent,
-        currentCourse,
-        setCurrentCourse,
         currentIndex,
         setCurrentIndex,
         displayBar,
@@ -56,7 +49,7 @@ const LearnContextProvider = ({ children }: Props) => {
   );
 };
 
-export const learnState = () => {
+export const LearnState = () => {
   return useContext(LearnContext) as LearnContextType;
 };
 
