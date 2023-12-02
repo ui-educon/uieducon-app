@@ -1,15 +1,9 @@
 import { handlePost } from "@/core/api-calls/Axios";
 import { getRazorpayObjectForCourseCheckout } from "@/core/api-calls/checkout";
 import { useAppSelector } from "@/core/redux/hooks";
-import React, { useState } from "react";
+import { useState } from "react";
 
-const usePurchaseCourseHook = (
-  courseId: String | undefined,
-  pricingINR: Number | undefined
-) => {
-  if (!courseId && !pricingINR)
-    return { showButtonLoader: false, makeCheckout: () => {} };
-
+const usePurchaseCourseHook = (courseId: String, pricingINR: Number) => {
   const { currentUser } = useAppSelector((state) => state.authState);
   const [showButtonLoader, setShowButtonLoader] = useState(false);
 
