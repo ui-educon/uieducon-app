@@ -1,3 +1,4 @@
+import { makeNewUserInDb } from "@/core/api-calls/user/user-apis";
 import firebaseAuth from "@/firebase.config";
 import { User, createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
 
@@ -40,6 +41,7 @@ export const userRegistrationHandler = async (email: string, password: string, n
     const user = userCredential.user;
     await updateProfile(user, { displayName: name, photoURL: `https://ui-avatars.com/api/?name=${name}&format=png` });
     await sendEmailVerification(user);
+    await makeNewUserInDb();
 
     const res: signUpResponse = {
       type: "success",

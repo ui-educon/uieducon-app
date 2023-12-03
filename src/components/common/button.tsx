@@ -7,11 +7,12 @@ type Props = {
   loading: boolean
   children: any
   onClick: any
+  disabled: boolean
 }
 
-const Button = ({ className, children, loading, loaderColor, onClick }: Props) => {
+const Button = ({ className, children, loading, loaderColor, onClick, disabled }: Props) => {
   return (
-    <button disabled={loading} className={className} onClick={onClick}>
+    <button disabled={disabled || loading} className={className} onClick={onClick}>
       {loading ? <BeatLoader color={loaderColor} size={8} /> : children}
     </button>
   )
@@ -23,5 +24,6 @@ Button.defaultProps = {
   className: "",
   loaderColor: "#00ffc3",
   loading: false,
-  onClick: () => { }
+  onClick: () => { },
+  disabled: false
 }

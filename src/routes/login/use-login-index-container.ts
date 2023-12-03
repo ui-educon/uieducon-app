@@ -1,6 +1,5 @@
 import { userLoginHandler } from '@/utils/auth/LoginMethods';
-import { useRouter } from 'next/router';
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form';
 
 const useLoginIndexContainer = () => {
@@ -9,8 +8,6 @@ const useLoginIndexContainer = () => {
     control,
     handleSubmit
   } = useForm();
-
-  const router = useRouter();
 
   const [buttonLoading, setButtonLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -21,9 +18,7 @@ const useLoginIndexContainer = () => {
 
     const loginRes = await userLoginHandler(data.email, data.password);
 
-    if (loginRes.type === "success") {
-      router.push('/')
-    } else {
+    if (loginRes.type !== "success") {
       setErrorMessage(loginRes.message)
     }
 

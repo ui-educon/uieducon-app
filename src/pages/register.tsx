@@ -1,3 +1,4 @@
+import LoginRouteWrapper from '@/components/wrappers/login-route-wrapper'
 import RegisterIndexContainer from '@/routes/register/register-index-container'
 import Head from 'next/head'
 import React from 'react'
@@ -10,8 +11,9 @@ const Register = (props: Props) => {
       <Head>
         <title>Register</title>
       </Head>
-
-      <RegisterIndexContainer />
+      <LoginRouteWrapper>
+        <RegisterIndexContainer />
+      </LoginRouteWrapper>
     </>
   )
 }
