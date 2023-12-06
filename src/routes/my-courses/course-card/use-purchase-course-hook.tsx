@@ -1,9 +1,15 @@
-import { handlePost } from "@/core/api-calls/Axios";
+import { handleGet, handlePost } from "@/core/api-calls/Axios";
 import { getRazorpayObjectForCourseCheckout } from "@/core/api-calls/checkout";
 import { useAppSelector } from "@/core/redux/hooks";
+import { setPackages } from "@/core/redux/reducers/purchased-packages-reducer/purchased-packages-reducer";
+import { useRouter } from "next/router";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 const usePurchaseCourseHook = (courseId: String, pricingINR: Number) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   const { currentUser } = useAppSelector((state) => state.authState);
   const [showButtonLoader, setShowButtonLoader] = useState(false);
 
@@ -57,7 +63,6 @@ const usePurchaseCourseHook = (courseId: String, pricingINR: Number) => {
       order_id: razorpayPricing?.id,
       amount: pricingINR?.toString(),
       handler: async function (response: any) {
-        setShowButtonLoader(false);
         const data = {
           course_id: courseId,
           order_creation_id: razorpayPricing?.id,
@@ -69,7 +74,13 @@ const usePurchaseCourseHook = (courseId: String, pricingINR: Number) => {
           {},
           true
         );
-        // setShowButtonLoader(false);
+
+        const userPackages = (
+          await handleGet("/user/get-all-packages-purchased")
+        ).data;
+
+        dispatch(setPackages(userPackages));
+        router.push(`/courses/${courseId}/learn`);
       },
       prefill: {
         name: currentUser?.displayName,
