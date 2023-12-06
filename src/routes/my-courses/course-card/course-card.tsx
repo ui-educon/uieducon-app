@@ -5,9 +5,10 @@ import { usePathname } from "next/navigation";
 
 type Props = {
   courseData: any;
+  isPurchased: boolean;
 };
 
-const CourseCard = ({ courseData }: Props) => {
+const CourseCard = ({ courseData, isPurchased }: Props) => {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -36,9 +37,15 @@ const CourseCard = ({ courseData }: Props) => {
       </div>
       <button
         className="mt-3 rounded-b-[20px] text-center text-lg tracking-wider font-light py-4 border bg-[#7E3AF2] hover:bg-[#7e3af2c7] text-white w-full "
-        onClick={() => courseClickHandler(courseData)}
+        onClick={() => {
+          if (isPurchased) {
+            router.push(`courses/${courseData?.recordId}/learn`)
+          } else {
+            courseClickHandler(courseData)
+          }
+        }}
       >
-        Buy Now
+        {isPurchased ? "Get Started" : "Buy Now"}
       </button>
     </div>
   );
