@@ -27,12 +27,12 @@ const AuthProvider = ({ children }: Props) => {
     ).data;
 
     dispatch(setUserData(userDetails));
-    dispatch(setAuthUserLoading(false));
 
     const userPackages = (await handleGet("/user/get-all-packages-purchased"))
       .data;
 
     dispatch(setPackages(userPackages));
+    dispatch(setAuthUserLoading(false));
   };
 
   useEffect(() => {

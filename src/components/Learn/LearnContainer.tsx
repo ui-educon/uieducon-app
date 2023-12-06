@@ -142,6 +142,7 @@ const LearnContainer = (props: Props) => {
   const router = useRouter();
 
   const purchaseState = useAppSelector((state) => state.packagesState);
+  const { userLoading } = useAppSelector((state) => state.authState);
 
   const changeToNext = async () => {
     let length = courseData?.sequence?.length || 0;
@@ -171,26 +172,25 @@ const LearnContainer = (props: Props) => {
   };
 
   useEffect(() => {
-    if (purchaseState.length > 0) {
-      for (let i = 0; i < purchaseState.length; i++) {
-        const element: packageType | null = purchaseState[i];
+    if (!userLoading) {
+      if (purchaseState.length > 0) {
+        for (let i = 0; i < purchaseState.length; i++) {
+          const element: packageType | null = purchaseState[i];
 
-        if (element?.courseId == params.courseId) {
-          setPackageData(element);
-          fetchCourseData();
-          // setCourseData(seedData);
-          let index = element.currentIndex ? element.currentIndex : 0;
-          setCurrentIndex(index);
-          setCurrentIdx(index);
-          setCurrentContent(seedData[index]);
-
-          return;
+          if (element?.courseId == params.courseId) {
+            setPackageData(element);
+            fetchCourseData();
+            let index = element.currentIndex ? element.currentIndex : 0;
+            setCurrentIndex(index);
+            setCurrentIdx(index);
+            setCurrentContent(seedData[index]);
+            return;
+          }
         }
       }
-
       router.replace(`/courses/${params.courseId}`);
     }
-  }, [purchaseState]);
+  }, [purchaseState, userLoading]);
 
   return (
     <main className="w-full h-full overflow-hidden w-full flex flex-col px-4 pt-8 md:px-8 md:flex-row md:justify-between">
