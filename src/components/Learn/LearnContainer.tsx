@@ -165,7 +165,7 @@ const LearnContainer = (props: Props) => {
         course_id: params.courseId,
       });
 
-      setCourseData(response.data);
+      return response.data;
     } catch (error) {
       console.log(error);
     }
@@ -179,11 +179,15 @@ const LearnContainer = (props: Props) => {
 
           if (element?.courseId == params.courseId) {
             setPackageData(element);
-            fetchCourseData();
-            let index = element.currentIndex ? element.currentIndex : 0;
-            setCurrentIndex(index);
-            setCurrentIdx(index);
-            setCurrentContent(seedData[index]);
+            fetchCourseData().then((courseData) => {
+              setCourseData(courseData);
+              let index: number = element.currentIndex
+                ? element.currentIndex
+                : 0;
+              setCurrentIndex(index);
+              setCurrentIdx(index);
+              setCurrentContent(courseData?.sequence[index]);
+            });
             return;
           }
         }
