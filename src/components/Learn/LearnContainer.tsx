@@ -159,6 +159,20 @@ const LearnContainer = (props: Props) => {
     } else setCurrentContent(null);
   };
 
+  const prevVideo = () => {
+    if (currentIdx > 0) {
+      setCurrentContent(courseData?.sequence[currentIdx - 1]);
+      setCurrentIdx((prev) => --prev);
+    }
+  };
+
+  const nextVideo = () => {
+    if (currentIdx < currentIndex) {
+      setCurrentContent(courseData?.sequence[currentIdx + 1]);
+      setCurrentIdx((prev) => ++prev);
+    }
+  };
+
   const fetchCourseData = async () => {
     try {
       const response = await handleGet("/course/get-course-by-id", {
@@ -211,7 +225,16 @@ const LearnContainer = (props: Props) => {
           &nbsp;&nbsp;&gt;&nbsp;&nbsp;
           {courseData?.sequence[currentIdx]?.title}
         </div>
-        <div className="h-[calc(100%-90px-28px-1.25rem)] overflow-auto hiddenScrollBar">
+        <div
+          className={
+            "overflow-auto hiddenScrollBar" +
+            `${
+              currentIdx > 0
+                ? " h-[calc(100%-90px-28px-1.25rem)]"
+                : " h-[calc(100%-28px-1.25rem)]"
+            }`
+          }
+        >
           {currentContent ? (
             <DynamicVideoPlayer
               onEndedHandler={changeToNext}
@@ -226,21 +249,37 @@ const LearnContainer = (props: Props) => {
           </p>
         </div>
 
-        <div className="w-full flex justify-between absolute bottom-0 border-t-2 border-solid border-[#dedede] py-4 shadow-[0px_4px_12px_rgba(0,0,0,0.08)]">
-          <div className="flex items-center cursor-pointer">
-            <div className="p-4 rounded-full bg-[#FBFBFF] mr-1.5">
-              <Image src={chevRight} alt="" className="rotate-180 w-6 h-6" />
-            </div>
-            <span>previous</span>
-          </div>
+        {currentIdx > 0 ? (
+          <div className="w-full flex justify-between absolute bottom-0 border-t-2 border-solid border-[#dedede] py-4">
+            {currentIdx > 0 ? (
+              <div
+                className="flex items-center cursor-pointer"
+                onClick={prevVideo}
+              >
+                <div className="p-4 rounded-full bg-[#FBFBFF] mr-1.5">
+                  <Image
+                    src={chevRight}
+                    alt=""
+                    className="rotate-180 w-6 h-6"
+                  />
+                </div>
+                <span>previous</span>
+              </div>
+            ) : null}
 
-          <div className="flex items-center cursor-pointer">
-            <span>next</span>
-            <div className="p-4 rounded-full bh-[#FBFBFF] ml-1.5">
-              <Image src={chevRight} alt="" className="w-6 h-6" />
-            </div>
+            {currentIdx < currentIndex ? (
+              <div
+                className="flex items-center cursor-pointer"
+                onClick={nextVideo}
+              >
+                <span>next</span>
+                <div className="p-4 rounded-full bh-[#FBFBFF] ml-1.5">
+                  <Image src={chevRight} alt="" className="w-6 h-6" />
+                </div>
+              </div>
+            ) : null}
           </div>
-        </div>
+        ) : null}
       </section>
     </main>
   );
