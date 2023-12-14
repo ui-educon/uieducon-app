@@ -10,11 +10,15 @@ type Props = {
 
 const VideoPlayer = ({ onEndedHandler, thumbnail }: Props) => {
   const { currentContent } = LearnState();
-  const [playState, setPlayState] = useState<string>("loading");
+  const [playState, setPlayState] = useState<string | undefined>("loading");
 
   const fetchPlayableLink = async () => {
     try {
       setPlayState("loading");
+      // setPlayState(currentContent?.videoURL);
+      // return;
+      console.log(currentContent?.videoURL);
+
       const response = await handleGet("/course/get-video-data", {
         link: currentContent?.videoURL,
       });
@@ -27,7 +31,7 @@ const VideoPlayer = ({ onEndedHandler, thumbnail }: Props) => {
   }, [currentContent]);
 
   return (
-    <div className="w-full h-fit lg:w-[95%] lg:h-[95%]">
+    <div className="w-full h-fit lg:w-[95%] lg:h-[95%] border border-solid border-[#e1e1e1]">
       <ReactPlayer
         url={
           playState == "loading"
