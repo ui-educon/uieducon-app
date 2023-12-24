@@ -18,18 +18,9 @@ const CourseItem = () => {
           </div>
 
           <div className="flex">
-            <div className="p-3 text-xl font-medium">
+            <p className="p-3 text-xl font-medium">
               Mastering the Art of Public Speaking
-            </div>
-
-            <div className="mr-2">
-              <CircularProgress
-                size={100}
-                strokeWidth={5}
-                percentage={70}
-                color="#7E3AF2"
-              />
-            </div>
+            </p>
           </div>
 
           <div className="p-3 text-xs text-gray-500">

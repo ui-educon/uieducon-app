@@ -1,5 +1,7 @@
-import CourseItem from "./CourseItem";
-const Courses = () => {
+import CourseCard from "@/routes/my-courses/course-card/course-card";
+import Link from "next/link";
+
+const Courses = ({ allCoursesList }) => {
   return (
     <div className="p-10 mt-7">
       <div className="coursetitle">
@@ -14,15 +16,25 @@ const Courses = () => {
         </p>
       </div>
 
-      <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[2vh] mt-4">
-        <CourseItem />
-        <CourseItem />
-        <CourseItem />
+      <div className="flex flex-wrap gap-5 lg:gap-8 mt-4">
+        {allCoursesList &&
+          allCoursesList
+            .slice(0, 4)
+            .map((courseData, index) => (
+              <CourseCard
+                courseData={courseData}
+                key={index}
+                isPurchased={false}
+              />
+            ))}
       </div>
       <div className="h-[30vh] flex items-center justify-center">
-        <div className="uibg px-11 text-white py-2 rounded-xl transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-500 cursor-pointer">
+        <Link
+          href="/courses"
+          className="uibg px-11 text-white py-2 rounded-xl transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-500 cursor-pointer"
+        >
           Explore All Courses
-        </div>
+        </Link>
       </div>
     </div>
   );

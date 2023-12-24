@@ -3,7 +3,7 @@ import Image from "next/image";
 import heroImg from "../../Images/svgs/hero.svg";
 const Hero = () => {
   return (
-    <div className="hero-con flex justify-center items-center">
+    <div className="hero-con flex">
       {/* left */}
 
       <div className="flex flex-1 flex-col flex-wrap herof">
@@ -13,14 +13,6 @@ const Hero = () => {
         <div className="heroMsg">
           Take the First Step Towards <span className="uicolor">Success</span>{" "}
           with Our Research Oriented Courses
-        </div>
-
-        <div className="searchField mt-8">
-          <input
-            type="search"
-            className="searchField"
-            placeholder="Search for a course"
-          />
         </div>
       </div>
 

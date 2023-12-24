@@ -1,23 +1,26 @@
 import HomePage from "@/components/HomePage/HomePage";
-import { useEffect, useState } from "react";
+import { handleGet } from "@/core/api-calls/Axios";
 
-export default function Home() {
-  const [showChild, setShowChild] = useState(false);
-  useEffect(() => {
-    setShowChild(true);
-  }, []);
+type Props = {
+  allCoursesList: any[];
+};
 
-  if (!showChild) {
-    return null;
-  }
+export default function Home({ allCoursesList }: Props) {
+  return (
+    <main>
+      <HomePage allCoursesList={allCoursesList}/>
+    </main>
+  );
+}
 
-  if (typeof window === "undefined") {
-    return <></>;
-  } else {
-    return (
-      <main>
-        <HomePage />
-      </main>
-    );
-  }
+export async function getStaticProps() {
+  const allCoursesRes = await handleGet("/course/get-all-courses");
+  const allCoursesList = allCoursesRes.data;
+
+  return {
+    props: {
+      allCoursesList,
+    },
+    revalidate: 3600,
+  };
 }
