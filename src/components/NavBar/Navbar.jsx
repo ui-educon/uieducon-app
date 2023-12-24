@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // import "./Navbar.css";
 import { useAppSelector } from "@/core/redux/hooks";
 import Link from "next/link";
@@ -9,6 +9,25 @@ import { useRouter } from "next/router";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+
+  const userDropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        userDropdownRef &&
+        userDropdownRef.current &&
+        !userDropdownRef.current.contains(event.target)
+      ) {
+        setUserDropdownOpen(false);
+      }
+    };
+
+    window.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      window.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [userDropdownRef]);
 
   const { currentUser, userLoading } = useAppSelector(
     (state) => state.authState
@@ -90,7 +109,7 @@ const Navbar = () => {
               {userLoading ? (
                 <></>
               ) : currentUser ? (
-                <div className="relative">
+                <div className="relative" ref={userDropdownRef}>
                   <button
                     onClick={() => setUserDropdownOpen(!userDropdownOpen)}
                     className="border border-gray-300 rounded-full p-1 h-10 w-10"
@@ -191,7 +210,7 @@ const Navbar = () => {
             {userLoading ? (
               <></>
             ) : currentUser ? (
-              <div className="relative w-fit">
+              <div className="relative w-fit" ref={userDropdownRef}>
                 <button
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
                   className="flex gap-1 items-center ml-2"

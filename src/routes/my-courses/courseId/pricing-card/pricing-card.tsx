@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PlayCircleFilledWhiteIcon from "@mui/icons-material/PlayCircleFilledWhite";
 import VerifiedIcon from "@mui/icons-material/Verified";
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import Button from "../../../../components/common/button";
 import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
 import { useAppSelector } from "@/core/redux/hooks";
@@ -41,12 +42,13 @@ const PricingCard = ({ courseData }: Props) => {
         <p className="text-[40px] font-bold">
           ₹{courseData.pricingINR.toLocaleString()}
         </p>
-        <ExpandCircleDownIcon
-          onClick={() => setIsExpanded(!isExpanded)}
-          className={`text-gray-600 duration-300 md:hidden ${
+        <div
+          className={`md:hidden text-gray-600 duration-300 ${
             isExpanded ? "rotate-180" : "rotate-0"
           }`}
-        />
+        >
+          <ExpandCircleDownIcon onClick={() => setIsExpanded(!isExpanded)} />
+        </div>
       </div>
 
       <div
@@ -65,6 +67,13 @@ const PricingCard = ({ courseData }: Props) => {
         <div className="flex gap-3">
           <VerifiedIcon className="w-5 h-5 text-[#7E3AF2]" />
           <p className="max-w-[180px]">Certificate after course completion</p>
+        </div>
+
+        <div className="flex gap-3">
+          <AssignmentTurnedInIcon className="w-5 h-5 text-[#7E3AF2]" />
+          <p className="max-w-[180px]">
+            Full access for {courseData.durationInDays} days
+          </p>
         </div>
       </div>
 

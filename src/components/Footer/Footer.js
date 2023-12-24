@@ -28,7 +28,7 @@ const Footer = ({ router }) => {
         <div className="mx-6 py-10 text-center md:text-left">
           <div className="grid-1 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
             {/* section */}
-            <div className>
+            <div>
               <h6 className="mb-4 flex items-center justify-center font-semibold uppercase md:justify-start">
                 <Link href={"/"} className="flex items-center">
                   <Image
@@ -47,7 +47,7 @@ const Footer = ({ router }) => {
               </p>
             </div>
             {/* Products section */}
-            <div className>
+            <div>
               <h6 className="mb-4 flex justify-center font-semibold uppercase md:justify-start">
                 Useful links
               </h6>
@@ -73,7 +73,7 @@ const Footer = ({ router }) => {
               </p>
             </div>
             {/* Useful links section */}
-            <div className>
+            <div>
               <h6 className="mb-4 flex justify-center font-semibold uppercase md:justify-start">
                 Useful links
               </h6>
