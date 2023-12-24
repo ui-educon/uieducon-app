@@ -17,14 +17,14 @@ const CourseCard = ({ courseData, isPurchased }: Props) => {
   };
 
   return (
-    <div className="flex flex-col border justify-between w-72 rounded-[20px] shadow-lg mb-6">
+    <div className="flex flex-col border justify-between w-full md:w-72 rounded-[20px] shadow-lg">
       <div className="">
         <Image
           alt="Course Image"
           src={courseData?.thumbnailUrl || ""}
           width={288}
           height={144}
-          className="h-36 border rounded-t-[20px] object-cover"
+          className="md:h-36 border rounded-t-[20px] object-cover w-full"
         />
         <div className="flex flex-col gap-y-2 p-4">
           <p className="text-lg tracking-wide font-semibold">

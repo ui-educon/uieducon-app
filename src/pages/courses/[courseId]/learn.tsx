@@ -1,4 +1,5 @@
 import LearnContainer from "@/components/Learn/LearnContainer";
+import EmailVerifyWrapper from "@/components/wrappers/email-verify-wrapper";
 import PrivateRouteWrapper from "@/components/wrappers/private-route-wrapper";
 import LearnContextProvider from "@/context/LearnContextProvider";
 import React from "react";
@@ -8,9 +9,11 @@ type Props = {};
 const learn = (props: Props) => {
   return (
     <PrivateRouteWrapper>
-      <LearnContextProvider>
-        <LearnContainer />
-      </LearnContextProvider>
+      <EmailVerifyWrapper>
+        <LearnContextProvider>
+          <LearnContainer />
+        </LearnContextProvider>
+      </EmailVerifyWrapper>
     </PrivateRouteWrapper>
   );
 };

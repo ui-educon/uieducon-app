@@ -48,6 +48,8 @@ const AuthProvider = ({ children }: Props) => {
         fetchUserDetails(user);
       } else {
         dispatch(setAuthCurrentUser(null));
+        dispatch(setUserData({}));
+        dispatch(setPackages([]));
         dispatch(setAuthUserLoading(false));
       }
       dispatch(setAuthFirebaseLoading(false));
