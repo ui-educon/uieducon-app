@@ -20,9 +20,6 @@ const Certificates = () => {
             certificates, you&apos;ll be well on your way to achieving your
             career goals.
           </p>
-          <button className="font-bold text-purple-600 text-lg">
-            Learn More!
-          </button>
         </div>
       </div>
     </div>

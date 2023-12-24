@@ -24,7 +24,7 @@ const CourseCard = ({ courseData, isPurchased }: Props) => {
           src={courseData?.thumbnailUrl || ""}
           width={288}
           height={144}
-          className="md:h-36 border rounded-t-[20px] object-cover w-full"
+          className="md:h-36 rounded-t-[20px] object-cover w-full"
         />
         <div className="flex flex-col gap-y-2 p-4">
           <p className="text-lg tracking-wide font-semibold">
@@ -36,16 +36,16 @@ const CourseCard = ({ courseData, isPurchased }: Props) => {
         </div>
       </div>
       <button
-        className="mt-3 rounded-b-[20px] text-center text-lg tracking-wider font-light py-4 border bg-[#7E3AF2] hover:bg-[#7e3af2c7] text-white w-full "
+        className="mt-3 rounded-b-[20px] text-center duration-300 text-lg tracking-wider font-light py-4 border bg-[#7E3AF2] hover:bg-[#7e3af2c7] text-white w-full "
         onClick={() => {
           if (isPurchased) {
-            router.push(`courses/${courseData?.recordId}/learn`)
+            router.push(`courses/${courseData?.recordId}/learn`);
           } else {
-            courseClickHandler(courseData)
+            courseClickHandler(courseData);
           }
         }}
       >
-        {isPurchased ? "Get Started" : "Buy Now"}
+        {isPurchased ? "Start Learning" : "View Course"}
       </button>
     </div>
   );
