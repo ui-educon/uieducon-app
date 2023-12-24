@@ -47,56 +47,35 @@ const Footer = ({ router }) => {
               </p>
             </div>
             {/* Products section */}
-            <div>
-              <h6 className="mb-4 flex justify-center font-semibold uppercase md:justify-start">
+            <div className="flex flex-col gap-4">
+              <h6 className="mb-2 flex justify-center font-semibold uppercase md:justify-start">
                 Useful links
               </h6>
-              <p className="mb-4">
-                <a href="#!" className="text-neutral-600 dark:text-neutral-200">
-                  Home{" "}
-                </a>
-              </p>
-              <p className="mb-4">
-                <a href="#!" className="text-neutral-600 dark:text-neutral-200">
-                  About Us
-                </a>
-              </p>
-              <p className="mb-4">
-                <a href="#!" className="text-neutral-600 dark:text-neutral-200">
-                  Research Activities
-                </a>
-              </p>
-              <p>
-                <a href="#!" className="text-neutral-600 dark:text-neutral-200">
-                  Summer School
-                </a>
-              </p>
+              <Link href="/" className="text-neutral-600 dark:text-neutral-200">
+                Home
+              </Link>
+              <Link href="/conferences" className="text-neutral-600 dark:text-neutral-200">
+                Conferences
+              </Link>
+              <Link href="/mentors" className="text-neutral-600 dark:text-neutral-200">
+                Mentors
+              </Link>
             </div>
+
             {/* Useful links section */}
-            <div>
-              <h6 className="mb-4 flex justify-center font-semibold uppercase md:justify-start">
+            <div className="flex flex-col gap-4">
+              <h6 className="mb-2 flex justify-center font-semibold uppercase md:justify-start">
                 Useful links
               </h6>
-              <p className="mb-4">
-                <a href="#!" className="text-neutral-600 dark:text-neutral-200">
-                  Career Counseling
-                </a>
-              </p>
-              <p className="mb-4">
-                <a href="#!" className="text-neutral-600 dark:text-neutral-200">
-                  Learning Management System
-                </a>
-              </p>
-              <p className="mb-4">
-                <a href="#!" className="text-neutral-600 dark:text-neutral-200">
-                  Membership
-                </a>
-              </p>
-              <p>
-                <a href="#!" className="text-neutral-600 dark:text-neutral-200">
-                  Contact Us
-                </a>
-              </p>
+              <Link href="/academy-industry-partners" className="text-neutral-600 dark:text-neutral-200">
+                Academy Industry Partners
+              </Link>
+              <Link href="/courses" className="text-neutral-600 dark:text-neutral-200">
+                Courses
+              </Link>
+              <Link href="/contact" className="text-neutral-600 dark:text-neutral-200">
+                Contact Us
+              </Link>
             </div>
             {/* Contact section */}
             <div>

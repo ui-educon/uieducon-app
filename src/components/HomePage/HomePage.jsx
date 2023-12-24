@@ -6,12 +6,13 @@ import HowItWorks from "../HowItWorks/HowItWorks";
 import Certificates from "../Certificates/Certificates";
 import Achievers from "../Achievers/Achievers";
 import Career from "../Career/Career";
-const HomePage = () => {
+
+const HomePage = ({ allCoursesList }) => {
   return (
     <div>
       <Hero />
       <WhoWeAre />
-      <Courses />
+      <Courses allCoursesList={allCoursesList} />
       <HowItWorks />
       <Certificates />
       <Achievers />
