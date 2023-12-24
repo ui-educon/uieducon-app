@@ -4,35 +4,25 @@ import { useEffect, useState } from "react";
 
 type Props = {};
 
-const useMyCoursesHook = () => {
-  const [allCoursesList, setAllCoursesList] = useState<any[]>([]);
+const useMyCoursesHook = (allCoursesList: any) => {
+  const allPurchasedCoursesList: any[] = [];
+
   const { currentUser, userLoading } = useAppSelector((state) => state.authState);
   const myPackagesPurchasedRes = useAppSelector((state) => state.packagesState);
 
-  const [loading, setLoading] = useState(true);
+  allCoursesList.forEach((course: any) => {
+    const purchasedPackage = myPackagesPurchasedRes.some(
+      (purchased: any) => purchased.courseId === course.recordId
+    );
 
-  const fetchAllCourses = async () => {
-    const allCoursesRes = await handleGet("/course/get-all-courses");
-    const allCourses = allCoursesRes?.data.map((course: any) => {
-      // Check if the course is purchased
-      const purchasedPackage = myPackagesPurchasedRes.some((purchased: any) => purchased.courseId === course.recordId);
-      if (purchasedPackage) {
-        return { ...course, isPurchased: true }
-      } else {
-        return { ...course, isPurchased: false }
-      }
-    })
-    setAllCoursesList(allCourses);
-    setLoading(false);
-  };
+    if (purchasedPackage) allPurchasedCoursesList.push(course);
+  });
 
-  useEffect(() => {
-    if (!userLoading) {
-      fetchAllCourses();
-    }
-  }, [userLoading]);
+  // const fetchAllCourses = async () => {
+  //   // const allCourses = allCoursesRes?.data.map();
+  // };
 
-  return { loading, allCoursesList, currentUser };
+  return { currentUser,userLoading, allPurchasedCoursesList };
 };
 
 export default useMyCoursesHook;

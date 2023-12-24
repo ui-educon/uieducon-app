@@ -8,7 +8,7 @@ type Props = {
 }
 
 const PrivateRouteWrapper = ({ children }: Props) => {
-  const { currentUser, userLoading, isEmailVerified } = useAppSelector(state => state.authState)
+  const { currentUser, userLoading } = useAppSelector(state => state.authState)
   const router = useRouter();
 
   if (userLoading) {
@@ -17,8 +17,6 @@ const PrivateRouteWrapper = ({ children }: Props) => {
     sessionStorage.setItem("loginFrom", router.asPath)
     router.push('/login');
     return <></>
-  } else if (!isEmailVerified) {
-    return <EmailVerifyScreen />
   } else {
     return children;
   }
