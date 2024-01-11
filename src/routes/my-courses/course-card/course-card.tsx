@@ -13,7 +13,7 @@ const CourseCard = ({ courseData, isPurchased }: Props) => {
   const pathname = usePathname();
 
   const courseClickHandler = (courseData: CourseType) => {
-    router.push(`${pathname}/${courseData.recordId}`);
+    router.push(`${pathname}/courses/${courseData.recordId}`);
   };
 
   return (
