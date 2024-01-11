@@ -51,14 +51,50 @@ const Footer = ({ router }) => {
               <h6 className="mb-2 flex justify-center font-semibold uppercase md:justify-start">
                 Useful links
               </h6>
-              <Link href="/" className="text-neutral-600 dark:text-neutral-200">
-                Home
+              <Link
+                href="https://merchant.razorpay.com/policy/MmPxtrYK4aWcKh/privacy"
+                target="_blank"
+                className="text-neutral-600 dark:text-neutral-200"
+              >
+                Privacy Policy
               </Link>
-              <Link href="/conferences" className="text-neutral-600 dark:text-neutral-200">
-                Conferences
+              <Link
+                href="https://merchant.razorpay.com/policy/MmPxtrYK4aWcKh/terms"
+                target="_blank"
+                className="text-neutral-600 dark:text-neutral-200"
+              >
+                Terms and conditions
               </Link>
-              <Link href="/mentors" className="text-neutral-600 dark:text-neutral-200">
-                Mentors
+              <Link
+                href="https://merchant.razorpay.com/policy/MmPxtrYK4aWcKh/refund"
+                target="_blank"
+                className="text-neutral-600 dark:text-neutral-200"
+              >
+                Refund policy
+              </Link>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <h6 className="mb-2 flex justify-center font-semibold uppercase md:justify-start">
+                Useful links
+              </h6>
+              <Link
+                href="/academy-industry-partners"
+                className="text-neutral-600 dark:text-neutral-200"
+              >
+                Academy Industry Partners
+              </Link>
+              <Link
+                href="/courses"
+                className="text-neutral-600 dark:text-neutral-200"
+              >
+                Courses
+              </Link>
+              <Link
+                href="/contact"
+                className="text-neutral-600 dark:text-neutral-200"
+              >
+                Contact Us
               </Link>
             </div>
 
@@ -67,13 +103,22 @@ const Footer = ({ router }) => {
               <h6 className="mb-2 flex justify-center font-semibold uppercase md:justify-start">
                 Useful links
               </h6>
-              <Link href="/academy-industry-partners" className="text-neutral-600 dark:text-neutral-200">
+              <Link
+                href="/academy-industry-partners"
+                className="text-neutral-600 dark:text-neutral-200"
+              >
                 Academy Industry Partners
               </Link>
-              <Link href="/courses" className="text-neutral-600 dark:text-neutral-200">
+              <Link
+                href="/courses"
+                className="text-neutral-600 dark:text-neutral-200"
+              >
                 Courses
               </Link>
-              <Link href="/contact" className="text-neutral-600 dark:text-neutral-200">
+              <Link
+                href="/contact"
+                className="text-neutral-600 dark:text-neutral-200"
+              >
                 Contact Us
               </Link>
             </div>
