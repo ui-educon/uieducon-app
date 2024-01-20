@@ -15,7 +15,7 @@ const HomePage = ({ allCoursesList }) => {
       <Courses allCoursesList={allCoursesList} />
       <HowItWorks />
       <Certificates />
-      <Achievers />
+      {/* <Achievers /> */}
       <Career />
     </div>
   );
