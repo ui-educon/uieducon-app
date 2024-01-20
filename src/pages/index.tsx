@@ -8,7 +8,7 @@ type Props = {
 export default function Home({ allCoursesList }: Props) {
   return (
     <main>
-      <HomePage allCoursesList={allCoursesList}/>
+      <HomePage allCoursesList={allCoursesList} />
     </main>
   );
 }
