@@ -46,7 +46,7 @@ const MyCoursesContainer = ({ allCoursesList }: Props) => {
           )
         )}
         <p className="mt-2 text-2xl font-medium">
-          View all <span className="text-[#7E3AF2]">courses</span>
+          All <span className="text-[#7E3AF2]">courses</span>
         </p>
         <div className="flex flex-wrap gap-5 lg:gap-8">
           {allCoursesList?.map((courseData: any, index: number) => {

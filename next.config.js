@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: process.env.NEXT_PUBLIC_NODE_ENV === 'production' ? true : false,
+  reactStrictMode:
+    process.env.NEXT_PUBLIC_NODE_ENV === "production" ? true : false,
   images: {
     remotePatterns: [
       {
@@ -86,6 +87,11 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "ui-avatars.com",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "thumbs.dreamstime.com",
         port: "",
       },
     ],

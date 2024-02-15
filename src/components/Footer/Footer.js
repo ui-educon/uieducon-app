@@ -54,21 +54,21 @@ const Footer = ({ router }) => {
               <Link
                 href="https://merchant.razorpay.com/policy/MmPxtrYK4aWcKh/privacy"
                 target="_blank"
-                className="text-neutral-600 dark:text-neutral-200"
+                className="text-neutral-200"
               >
                 Privacy Policy
               </Link>
               <Link
                 href="https://merchant.razorpay.com/policy/MmPxtrYK4aWcKh/terms"
                 target="_blank"
-                className="text-neutral-600 dark:text-neutral-200"
+                className="text-neutral-200"
               >
                 Terms and conditions
               </Link>
               <Link
                 href="https://merchant.razorpay.com/policy/MmPxtrYK4aWcKh/refund"
                 target="_blank"
-                className="text-neutral-600 dark:text-neutral-200"
+                className="text-neutral-200"
               >
                 Refund policy
               </Link>
@@ -80,20 +80,14 @@ const Footer = ({ router }) => {
               </h6>
               <Link
                 href="/academy-industry-partners"
-                className="text-neutral-600 dark:text-neutral-200"
+                className="text-neutral-200"
               >
                 Academy Industry Partners
               </Link>
-              <Link
-                href="/courses"
-                className="text-neutral-600 dark:text-neutral-200"
-              >
+              <Link href="/courses" className="text-neutral-200">
                 Courses
               </Link>
-              <Link
-                href="/contact"
-                className="text-neutral-600 dark:text-neutral-200"
-              >
+              <Link href="/contact" className="text-neutral-200">
                 Contact Us
               </Link>
             </div>
@@ -105,20 +99,14 @@ const Footer = ({ router }) => {
               </h6>
               <Link
                 href="/academy-industry-partners"
-                className="text-neutral-600 dark:text-neutral-200"
+                className="text-neutral-200"
               >
                 Academy Industry Partners
               </Link>
-              <Link
-                href="/courses"
-                className="text-neutral-600 dark:text-neutral-200"
-              >
+              <Link href="/courses" className="text-neutral-200">
                 Courses
               </Link>
-              <Link
-                href="/contact"
-                className="text-neutral-600 dark:text-neutral-200"
-              >
+              <Link href="/contact" className="text-neutral-200">
                 Contact Us
               </Link>
             </div>

@@ -235,20 +235,20 @@ const LearnContainer = (props: Props) => {
             }`
           }
         >
-          {/* {currentContent ? (
+          {currentContent ? (
             <DynamicVideoPlayer
               onEndedHandler={changeToNext}
               thumbnail={courseData?.thumbnailUrl}
             />
-          ) : null} */}
-          <iframe
+          ) : null}
+          {/* <iframe
             width="560"
             height="315"
             src="https://www.youtube.com/embed/20l2JaGslZ4?si=dJzyPANUTX3cgER9&amp;controls=0"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
-          ></iframe>
+          ></iframe> */}
           <h4 className="text-xl font-medium mt-10 mb-5">
             {currentContent?.title}
           </h4>
