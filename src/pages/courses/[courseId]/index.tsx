@@ -34,7 +34,7 @@ export async function getStaticProps({ params }: any) {
     props: {
       courseData: courseData,
     },
-    revalidate: 3600,
+    revalidate: 10,
     notFound: !courseData,
   };
 }

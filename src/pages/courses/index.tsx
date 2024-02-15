@@ -20,6 +20,6 @@ export async function getStaticProps() {
     props: {
       allCoursesList,
     },
-    revalidate: 30,
+    revalidate: 10,
   };
 }
