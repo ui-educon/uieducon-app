@@ -21,6 +21,6 @@ export async function getStaticProps() {
     props: {
       allCoursesList,
     },
-    revalidate: 3600,
+    revalidate: 10,
   };
 }
